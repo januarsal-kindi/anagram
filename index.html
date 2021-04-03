@@ -1,0 +1,75 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bibit Logic Test</title>
+  <meta name="description" content="Bibit Logic Test">
+  <meta name="author" content="yayan.yayan98@gmail.com">
+</head>
+
+<body>
+
+    <pre id="container">
+
+    </pre>
+    <script>
+
+     function main  (arrayString = []){
+        const arrayResult = []
+
+         for(const stringChar of arrayString){
+            if(arrayResult.length > 0){
+                const checkIncludeArray = isIncludeAnagramArray(arrayResult,stringChar)
+                if(Number.isInteger(checkIncludeArray)){
+                    arrayResult[checkIncludeArray].push(stringChar)
+                }else {
+                    arrayResult.push([stringChar])
+                }
+            }else {
+                arrayResult.push([stringChar])
+            }
+         }
+
+         return arrayResult;
+         
+     } 
+     
+     function isIncludeAnagramArray(arrayResult,stringItem){
+        for (let i = 0; i < arrayResult.length; i++) {
+            const item = arrayResult[i]
+            if(checkAnagram(item[0],stringItem)){
+                return i
+            }
+        }
+        return false 
+     }
+     function checkAnagram(valuaA, valueB) {
+        stringA = valuaA.replace(/[^\w]/g, "").toLowerCase()
+        stringB = valueB.replace(/[^\w]/g, "").toLowerCase()
+        const objShortCharA = getShortingChar(stringA)
+        const objShortCharB = getShortingChar(stringB)
+        for (let char in objShortCharA) {
+            if (objShortCharA[char] !== objShortCharB[char]) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    function getShortingChar(string) {
+        let charMap = {}
+        for (let char of string) {
+            charMap[char] = charMap[char] + 1 || 1
+        }
+        return charMap
+    } 
+
+    const container = document.getElementById('container')
+    container.innerHTML = JSON.stringify(main(['kita', 'atik', 'tika', 'aku', 'kia', 'makan', 'kua']))
+    console.log(main(['kita', 'atik', 'tika', 'aku', 'kia', 'makan', 'kua']))
+    </script>
+</body>
+</html>
